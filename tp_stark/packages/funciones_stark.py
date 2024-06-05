@@ -217,4 +217,40 @@ def castear_heroe(lista):
         heroes_retorno.append(new_superheroe(nombre,identidad,empresa,altura,peso,genero,color_ojos,color_pelo,fuerza,inteligencia))
     return heroes_retorno
 
+
+def mostrar_nombre_heroe(lista:list):
+    print("     Nombre de heroes")
+    for item in lista:
+        print(item)
+
+def mostrar_nombre_altura(lista):
+    print("Nombre                        Altura")
+    for i in range(len(lista)):
+        print(f"{lista[i][0]:<30}{lista[i][1]:<0.5}")
+
+def mostrar_min_max(lista:list[list],min:int,max:int):
+    """recorre una lista con elementos de la forma [nombre,altura] e informa maximo y minimo con nombre
+
+    Args:
+        lista (): lsita que contiene listas de dos elementos
+        min (int): valor minimo de compracion
+        max (int): valor maximo de comparacion
+    """
+    for i in range(len(lista)):
+        if lista[i][1] == max:
+            print(f"El superheroe mas alto es {lista[i][0]},con {max}") 
+    
+        if lista[i][1] == min:
+            print(f"El superheroe mas bajo es {lista[i][0]},con {min} ") 
    
+
+def filtrar_genero_m_f(lista:list[dict],genero:str = 'M'):
+    lista_filtro_aplicado = []   
+    match genero:
+        case 'M':
+            lista_filtro_aplicado = filtrar_lista(lambda a:  a["genero"] == genero  ,lista)
+        case 'F':
+            lista_filtro_aplicado = filtrar_lista(lambda a:  a["genero"] == genero  ,lista)
+        case _:
+            raise ValueError("Argumentos invalidos")
+    return lista_filtro_aplicado

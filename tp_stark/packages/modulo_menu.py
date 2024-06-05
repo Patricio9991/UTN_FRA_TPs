@@ -4,9 +4,25 @@ from os import system
 def pause():
     system('pause')
 
+def elegir_menu_desafio():
+    os.system('cls')
+    print("TP STARK| Desafio #00 o #01")
+    print("")
+    print("a)Ver menu desafio #00")
+    print("b)Ver menu desafio #01")
+
+    desafio = input("Seleccione menu: ")
+
+
+
+
+    return desafio
+
+
 def menu():
     os.system('cls')
     print("--Menu opciones Stark--")
+    print("-Desafio #00-")
     print("1-Mostrar nombre de cada superheroe")
     print("2-Mostrar nombre y altura de cada superheroe")
     print("3-Ver altura maxima")
@@ -16,9 +32,12 @@ def menu():
     print("7-Ver superheroe mas y menos pesado")
     print("8-Ordenar la informacion")
     print("")
-    print("9-Salir")
+    # print("-Desafio #01-")
+    # print("A)Recorrer la lista imprimiendo por consola el nombre de cada superhéroe degénero M")
+
 
     opcion = input("Ingrese una opcion: ")
+    print("")
 
     return opcion
 
