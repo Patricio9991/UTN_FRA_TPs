@@ -8,12 +8,12 @@ from packages.funciones_stark import *
 
 #B Recorrer la lista imprimiendo por consola el nombre de cada superhéroe
 
-nombre_heroes = mapear_columna(lista_personajes,"nombre") 
+nombre_heroes = mapear_lista(lambda heroe: heroe["nombre"], lista_personajes)
 
 
 #C Recorrer la lista imprimiendo por consola nombre de cada superhéroe junto a la altura del mismo
 
-altura_heroes = mapear_lista(lambda a : float(a),mapear_columna(lista_personajes,"altura"))
+altura_heroes = mapear_lista(lambda heroe : float(heroe["altura"]),lista_personajes)
 
 
 lista_nombre_altura = []
@@ -68,8 +68,8 @@ promedio_altura = acumulador_altura / len(altura_heroes)
 
 #H  Calcular e informar cual es el superhéroe más y menos pesado.
 
-lista_peso_heroes = mapear_lista(lambda a: float(a),mapear_columna(lista_personajes,"peso"))
-
+lista_peso_heroes = mapear_lista(lambda a: float(a["peso"]),lista_personajes)
+print(lista_peso_heroes)
 
 
 maximo_peso = buscar_maximo_or_minimo(lista_peso_heroes)

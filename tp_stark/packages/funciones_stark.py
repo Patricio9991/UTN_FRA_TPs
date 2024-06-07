@@ -23,27 +23,12 @@ def valirdar_lista(lista:list)->bool:
     """
 
     if not isinstance(lista,list):
-        raise ValueError("No se ingreso un dato valido")
+        raise ValueError("No se ingreso una lista")
 
-
-def mapear_columna(lista:list,campo:str)->list:
-    """Devuelve una lista que contiene la informacion de un campo de un diccionario
-
-    Args:
-        lista (list): lista de diccionarios
-        campo (str): campo para extraer informacion
-
-    Returns:
-        list: columna de la informacion
-    """
-    valirdar_lista(lista)
-    lista_retorno = []
-    
-    for i in range(len(lista)):
-        
-        lista_retorno.append(lista[i][campo])
-
-    return lista_retorno
+def validar_string(string):
+    if not string.isalpha():
+        raise ValueError("No se permiten caracteres especiales ni numeros")
+    return string
 
 def mapear_lista(proceso,lista:list)->list:
     """mapea una lista segun un determinado criterio
@@ -63,6 +48,22 @@ def mapear_lista(proceso,lista:list)->list:
 
     return lista_retorno
 
+
+def for_each_lista(proceso,lista:list)->list:
+    """Aplica cambios a cada elemento de una lista
+
+    Args:
+        proceso (funcion): Una funcion que modifica elementos de una lista
+        lista (list): lista valida
+
+    """
+
+    valirdar_lista(lista)
+
+    for i in range(len(lista)):
+        proceso(lista[i])
+
+
 def filtrar_lista(filtradora:bool,list:list): #filtrar
     """filtra lista segun criterio
 
@@ -81,6 +82,14 @@ def filtrar_lista(filtradora:bool,list:list): #filtrar
 
     return lista_filtrada
 
+def reduce_list(funcion,lista)-> any:
+    anterior = lista[0]
+
+    for el in lista[1:]:
+        anterior = funcion(anterior,el)
+
+    return anterior
+
 def swap_items(lista,i,j):
     aux = lista[i]
        
@@ -89,6 +98,15 @@ def swap_items(lista,i,j):
     lista[j]  = aux
 
 def buscar_maximo_or_minimo(lista,maximo = True):
+    """Busca el maximo o minimo de una lista
+
+    Args:
+        lista (_type_): _description_
+        maximo (bool, optional): True (default) = maximo | False = minimo.
+
+    Returns:
+        retorna el maximo o el minimo
+    """
 
     valirdar_lista(lista)
     valor_max_or_min = 0
@@ -244,13 +262,37 @@ def mostrar_min_max(lista:list[list],min:int,max:int):
             print(f"El superheroe mas bajo es {lista[i][0]},con {min} ") 
    
 
-def filtrar_genero_m_f(lista:list[dict],genero:str = 'M'):
-    lista_filtro_aplicado = []   
-    match genero:
-        case 'M':
-            lista_filtro_aplicado = filtrar_lista(lambda a:  a["genero"] == genero  ,lista)
-        case 'F':
-            lista_filtro_aplicado = filtrar_lista(lambda a:  a["genero"] == genero  ,lista)
-        case _:
-            raise ValueError("Argumentos invalidos")
-    return lista_filtro_aplicado
+def mostrar_float(promedio:float):
+
+    """Recibe un float y lo imprime con dos decimales
+
+    Args:
+        promedio (float)
+
+    """
+    if not isinstance(promedio,float):
+        raise  ValueError("Se esperaba un float")
+    print(f"{promedio:0.2f}")
+
+
+def mostrar_valores_asociados_dict(list_dict:list[dict],valor_asociado:str,valor_max_min:float):
+    key_index = list(list_dict[0].keys())
+    for i in range(len(key_index)):
+        if key_index[i] == valor_asociado:
+            print(f"{list_dict[i][valor_asociado]} | {valor_max_min}")
+            break
+
+
+def mostrar_campo_buscado(lista_busqueda:list,data:list,campo_buscado:str)->None:
+    """muestra la lista segun un campo buscado fitlrando en una lista general
+
+    Args:
+        list (list): lista con caracteristicas de lo que se busca
+        data(dict):diccionario donde realizar la busqueda
+        campo_buscado (str): campo en del cual se quiere obtener la informacion
+    """
+
+    for i in range(len(lista_busqueda)):
+        ojos_de_heroe = filtrar_lista(lambda a : a[campo_buscado] == lista_busqueda[i],data)
+        print(f"{campo_buscado} de tipo {lista_busqueda[i]:<15}: {len(ojos_de_heroe)}")
+
